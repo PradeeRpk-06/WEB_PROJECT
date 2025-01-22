@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYTRIP - Bus Reservation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e4e1e9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #411f68;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        section {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea, select {
+            margin: 10px 0;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"], input[type="reset"] {
+            background-color: #411f68;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover, input[type="reset"]:hover {
+            background-color: #411f68;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Welcome Page -->
+    <header>
+        <h1>Welcome to MYTRIP Bus Reservation</h1>
+    </header>
+
+    <!-- Login Page (Initially Visible) -->
+    <section id="loginSection">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required placeholder="Enter your username">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+
+            <label for="rememberMe">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                Remember Me
+            </label>
+
+            <input type="submit" value="Login">
+            <input type="reset" value="Reset">
+
+            <p>Don't have an account? <a href="javascript:void(0);" onclick="showRegistrationForm()">Register here</a></p>
+        </form>
+    </section>
+
+    <!-- Registration Page (Initially Hidden) -->
+    <section id="registrationSection" class="hidden">
+        <h2>Register</h2>
+        <form action="/register" method="POST">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email address">
+
+            <label for="username">Username</label>
+            <input type="text" id="regUsername" name="regUsername" required placeholder="Choose a username">
+
+            <label for="password">Password</label>
+            <input type="password" id="regPassword" name="regPassword" required placeholder="Create a password">
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+
+            <label>Gender</label>
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+
+            <label for="preferredSeat">Preferred Seat Type</label>
+            <select id="preferredSeat" name="preferredSeat">
+                <option value="window">Window</option>
+                <option value="aisle">Aisle</option>
+                <option value="middle">Middle</option>
+            </select>
+
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" placeholder="Enter your address"></textarea>
+
+            <input type="submit" value="Register">
+            <input type="reset" value="Reset">
+
+            <p>Already have an account? <a href="javascript:void(0);" onclick="showLoginForm()">Login here</a></p>
+        </form>
+    </section>
+
+    <script>
+        function showRegistrationForm() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('registrationSection').classList.remove('hidden');
+        }
+
+        function showLoginForm() {
+            document.getElementById('registrationSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
