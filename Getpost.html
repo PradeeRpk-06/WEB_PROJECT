@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Reservation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin: 8px 0;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bus Reservation System</h1>
+
+    <form action="reservation_confirmation.html" method="GET">
+        <!-- Full Name -->
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <!-- Bus ID -->
+        <label for="bus_id">Bus ID:</label>
+        <input type="text" id="bus_id" name="bus_id" required>
+
+        <!-- Seat Number -->
+        <label for="seat_number">Seat Number:</label>
+        <input type="number" id="seat_number" name="seat_number" required>
+
+        <!-- Departure Date and Time -->
+        <label for="departure_time">Departure Date and Time:</label>
+        <input type="datetime-local" id="departure_time" name="departure_time" required>
+
+        <!-- Contact Number -->
+        <label for="contact">Contact Number:</label>
+        <input type="text" id="contact" name="contact" required>
+
+        <!-- Submit Button -->
+        <button type="submit">Reserve</button>
+    </form>
+
+</body>
+</html>

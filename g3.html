@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Reservation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form, .confirmation {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin: 8px 0;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .confirmation h2 {
+            text-align: center;
+        }
+        .confirmation p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bus Reservation System</h1>
+
+    <div id="form-section">
+        <!-- Reservation Form -->
+        <form id="reservation-form">
+            <!-- Full Name -->
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <!-- Bus ID -->
+            <label for="bus_id">Bus ID:</label>
+            <input type="text" id="bus_id" name="bus_id" required>
+
+            <!-- Seat Number -->
+            <label for="seat_number">Seat Number:</label>
+            <input type="number" id="seat_number" name="seat_number" required>
+
+            <!-- Departure Date and Time -->
+            <label for="departure_time">Departure Date and Time:</label>
+            <input type="datetime-local" id="departure_time" name="departure_time" required>
+
+            <!-- Contact Number -->
+            <label for="contact">Contact Number:</label>
+            <input type="text" id="contact" name="contact" required>
+
+            <!-- Submit Button -->
+            <button type="submit">Reserve</button>
+        </form>
+    </div>
+
+    <div id="confirmation-section" style="display: none;">
+        <!-- Reservation Confirmation -->
+        <div class="confirmation">
+            <h2>Your Reservation Details:</h2>
+            <p><strong>Full Name:</strong> <span id="confirm-name"></span></p>
+            <p><strong>Bus ID:</strong> <span id="confirm-bus-id"></span></p>
+            <p><strong>Seat Number:</strong> <span id="confirm-seat-number"></span></p>
+            <p><strong>Departure Time:</strong> <span id="confirm-departure-time"></span></p>
+            <p><strong>Contact Number:</strong> <span id="confirm-contact"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('reservation-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting and reloading the page
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const busId = document.getElementById('bus_id').value;
+            const seatNumber = document.getElementById('seat_number').value;
+            const departureTime = document.getElementById('departure_time').value;
+            const contact = document.getElementById('contact').value;
+
+            // Hide the form and show the confirmation section
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('confirmation-section').style.display = 'block';
+
+            // Display the form data in the confirmation section
+            document.getElementById('confirm-name').textContent = name;
+            document.getElementById('confirm-bus-id').textContent = busId;
+            document.getElementById('confirm-seat-number').textContent = seatNumber;
+            document.getElementById('confirm-departure-time').textContent = departureTime;
+            document.getElementById('confirm-contact').textContent = contact;
+        });
+    </script>
+
+</body>
+</html>
