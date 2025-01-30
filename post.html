@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST Request Example</title>
+</head>
+<body>
+    <h2>Create User</h2>
+
+    <!-- Simple Form to collect user info -->
+    <form id="userForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="responseMessage"></div>
+
+    <script>
+        // When the form is submitted
+        document.getElementById('userForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            // Get the form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            // The data to send in the POST request
+            const data = {
+                name: name,
+                email: email
+            };
+
+            // Send POST request using Fetch API
+            fetch('https://api.example.com/users', {  // Replace with your API endpoint
+                method: 'POST',  // HTTP method
+                headers: {
+                    'Content-Type': 'application/json',  // Tell server we're sending JSON
+                },
+                body: JSON.stringify(data)  // Convert the JavaScript object to a JSON string
+            })
+            .then(response => response.json())  // Parse the JSON response from the server
+            .then(data => {
+                // Show the server's response on the page
+                document.getElementById('responseMessage').innerHTML = 
+                    `<p>User created successfully! ID: ${data.id}</p>`;
+            })
+            .catch(error => {
+                // Handle any errors that occur during the fetch
+                console.error('Error:', error);
+                document.getElementById('responseMessage').innerHTML = 
+                    `<p>Error creating user. Please try again.</p>`;
+            });
+        });
+    </script>
+</body>
+</html>

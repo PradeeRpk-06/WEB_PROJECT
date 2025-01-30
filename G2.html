@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .confirmation {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Reservation Confirmation</h1>
+
+    <div class="confirmation">
+        <h2>Your Reservation Details:</h2>
+        <p><strong>Full Name:</strong> <span id="name"></span></p>
+        <p><strong>Bus ID:</strong> <span id="bus_id"></span></p>
+        <p><strong>Seat Number:</strong> <span id="seat_number"></span></p>
+        <p><strong>Departure Time:</strong> <span id="departure_time"></span></p>
+        <p><strong>Contact Number:</strong> <span id="contact"></span></p>
+    </div>
+
+    <script>
+        // Function to get query parameters from the URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Set the content of the reservation confirmation page
+        document.getElementById('name').textContent = getQueryParam('name');
+        document.getElementById('bus_id').textContent = getQueryParam('bus_id');
+        document.getElementById('seat_number').textContent = getQueryParam('seat_number');
+        document.getElementById('departure_time').textContent = getQueryParam('departure_time');
+        document.getElementById('contact').textContent = getQueryParam('contact');
+    </script>
+
+</body>
+</html>
