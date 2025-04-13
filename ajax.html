@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Reservation System</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Simple CSS for layout */
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #buses { margin-top: 20px; }
+        .bus { margin-bottom: 10px; padding: 10px; background-color: #f4f4f4; }
+        .reserved { background-color: #ffdddd; }
+        .available { background-color: #d4edda; }
+        .success-message { color: green; font-weight: bold; }
+        .error-message { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Bus Reservation System</h1>
+    
+    <button onclick="loadAvailableBuses()">Show Available Buses</button>
+    <div id="buses"></div>
+
+    <h2>Reserve a Seat</h2>
+    <input type="number" id="busId" placeholder="Bus ID" required>
+    <input type="text" id="userName" placeholder="Your Name" required>
+    <button onclick="reserveSeat()">Reserve Seat</button>
+    <div id="reservationStatus"></div> <!-- Message to show reservation status -->
+
+    <h2>Check Reservation Status</h2>
+    <input type="number" id="checkBusId" placeholder="Bus ID">
+    <input type="number" id="seatNumber" placeholder="Seat Number">
+    <button onclick="checkStatus()">Check Status</button>
+
+    <script>
+        // Simulated buses data for this example
+        let buses = [
+            { id: 1, status: 'available', availableSeats: 10 },
+            { id: 2, status: 'reserved', availableSeats: 0 },
+            { id: 3, status: 'available', availableSeats: 5 }
+        ];
+
+        function loadAvailableBuses() {
+            // AJAX to fetch available buses from the server (simulated in this case)
+            // This should be a GET request to the server to fetch real bus data
+            let html = '';
+            buses.forEach(bus => {
+                html += `<div class="bus ${bus.status === 'reserved' ? 'reserved' : 'available'}">
+                            Bus ID: ${bus.id} | Seats: ${bus.availableSeats} | Status: ${bus.status}
+                          </div>`;
+            });
+            $('#buses').html(html); // Update the bus list dynamically using AJAX data
+        }
+
+        function reserveSeat() {
+            const busId = $('#busId').val();
+            const userName = $('#userName').val();
+            if (!busId || !userName) {
+                alert('Please fill all fields!');
+                return;
+            }
+
+            // AJAX call to reserve a seat (simulated here, but should be a POST request to the server)
+            const bus = buses.find(bus => bus.id == busId);
+            if (bus && bus.status === 'available' && bus.availableSeats > 0) {
+                // Simulate reservation by updating the local buses array
+                bus.status = 'reserved';
+                bus.availableSeats -= 1;
+                $('#reservationStatus').html(`<p class="success-message">Reservation successful for ${userName}!</p>`);
+                loadAvailableBuses(); // Refresh the bus list dynamically (simulated AJAX update)
+            } else {
+                $('#reservationStatus').html('<p class="error-message">No available seats or invalid bus ID!</p>');
+            }
+        }
+
+        function checkStatus() {
+            const busId = $('#checkBusId').val();
+            const seatNumber = $('#seatNumber').val();
+            if (!busId || !seatNumber) {
+                alert('Please provide both Bus ID and Seat Number!');
+                return;
+            }
+
+            // Simulate an AJAX request to check reservation status
+            // In a real implementation, this would be a GET request to the server
+            const bus = buses.find(bus => bus.id == busId);
+            if (bus && bus.status === 'reserved') {
+                // Simulate checking seat reservation (for this demo we use bus status)
+                alert('Status: Reserved by John Doe');
+            } else {
+                alert('Status: No reservation found for the given seat.');
+            }
+        }
+    </script>
+</body>
+</html>
