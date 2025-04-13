@@ -1,0 +1,113 @@
+import React, { useState } from 'react'; 
+import './App.css'; 
+import BusList from './components/buses/busList';  
+import SeatSelection from './components/form/SeatSelection';   
+import BookingForm from './components/form/BookingForm'; 
+// Data for buses and destinations 
+const busesData = [ 
+  { id: 1, name: "Chennai", availableSeats: 30, price: 500 }, 
+  { id: 2, name: "Madurai", availableSeats: 25, price: 400 }, 
+  { id: 3, name: "Bangalore", availableSeats: 40, price: 600 }, 
+  { id: 4, name: "Coimbatore", availableSeats: 35, price: 450 }, 
+]; 
+const destinations = [ 
+  { id: 1, name: "Chennai", discount: 10 }, 
+  { id: 2, name: "Madurai", discount: 5 }, 
+  { id: 3, name: "Bangalore", discount: 15 }, 
+  { id: 4, name: "Coimbatore", discount: 0 }, 
+]; 
+const App = () => { 
+  const [selectedBus, setSelectedBus] = useState(null); 
+  const [selectedSeats, setSelectedSeats] = useState([]); 
+  const [location, setLocation] = useState({ start: '', end: '' }); 
+  const [offer, setOffer] = useState(null); 
+  const [modalVisible, setModalVisible] = useState(false); 
+  const handleBusSelect = (bus) => { 
+    setSelectedBus(bus); 
+    setSelectedSeats([]); 
+  
+  
+    setOffer(null); 
+  }; 
+ 
+  const handleSeatSelect = (seat) => { 
+    setSelectedSeats(prevSeats => 
+      prevSeats.includes(seat) 
+        ? prevSeats.filter(s => s !== seat) 
+        : [...prevSeats, seat] 
+    ); 
+  }; 
+  const handleLocationChange = (e, type) => { 
+    const value = e.target.value; 
+    setLocation(prev => { 
+      const newLocation = { ...prev, [type]: value }; 
+      if (newLocation.start && newLocation.end) { 
+        const startDest = destinations.find(d => d.name === newLocation.start); 
+        const endDest = destinations.find(d => d.name === newLocation.end); 
+        const discount = Math.min(startDest?.discount || 0, endDest?.discount || 0); 
+        setOffer(`You get a ${discount}% discount!`); 
+      } 
+      return newLocation; 
+    }); 
+  }; 
+  const handleReservation = () => { 
+    if (!selectedSeats.length) { 
+      alert('Please select at least one seat.'); 
+      return; 
+    } 
+    setModalVisible(true); 
+  }; 
+  const cancelReservation = () => { 
+    setSelectedSeats([]); 
+    setLocation({ start: '', end: '' }); 
+    setModalVisible(false); 
+  
+  
+  }; 
+  return ( 
+    <div className="container"> 
+      <h1>Bus Reservation System</h1> 
+      {/* Location Selection */} 
+      <div> 
+        <select value={location.start} onChange={(e) => handleLocationChange(e, 'start')}> 
+          <option value="">Select Start Location</option> 
+          {destinations.map(d => <option key={d.id} value={d.name}>{d.name}</option>)} 
+        </select> 
+        <select value={location.end} onChange={(e) => handleLocationChange(e, 'end')}> 
+          <option value="">Select Destination</option> 
+          {destinations.map(d => <option key={d.id} value={d.name}>{d.name}</option>)} 
+        </select> 
+        {offer && <p>{offer}</p>} 
+      </div> 
+      {/* Bus Selection */} 
+      <BusList buses={busesData} onBusSelect={handleBusSelect} /> 
+      {/* Seat Selection */} 
+      {selectedBus && ( 
+        <SeatSelection 
+          bus={selectedBus} 
+          reservedSeats={selectedSeats} 
+          onSeatSelect={handleSeatSelect} 
+        /> 
+      )} 
+      {/* Booking Form */} 
+      {selectedSeats.length > 0 && ( 
+        <BookingForm onSubmit={handleReservation} /> 
+      )} 
+      {/* Reservation Modal */} 
+      {modalVisible && ( 
+        <div className="modal show"> 
+          <div className="modal-content"> 
+  
+  
+            <h3>Reservation Confirmed!</h3> 
+            <p>Seats: {selectedSeats.join(', ')}</p> 
+            <p>Total: ₹{selectedBus.price * selectedSeats.length}</p> 
+            <button onClick={cancelReservation}>Cancel Reservation</button> 
+            <button onClick={() => setModalVisible(false)}>Close</button> 
+          </div> 
+        </div> 
+      )} 
+    </div> 
+  ); 
+}; 
+export default App;
