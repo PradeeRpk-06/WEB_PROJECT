@@ -1,388 +1,166 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>MYTRIP - Bus Reservation</title>
-
-    <style>
-
-        body {
-
-            font-family: Arial, sans-serif;
-
-            background-color: #e4e1e9;
-
-            margin: 0;
-
-            padding: 0;
-
-        }
-
-        header {
-
-            background-color: #411f68;
-
-            color: white;
-
-            text-align: center;
-
-            padding: 10px;
-
-        }
-
-        section {
-
-            width: 50%;
-
-            margin: auto;
-
-            padding: 20px;
-
-            background-color: white;
-
-            border-radius: 8px;
-
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
-        }
-
-        form {
-
-            display: flex;
-
-            flex-direction: column;
-
-        }
-
-        input, textarea, select {
-
-            margin: 10px 0;
-
-            padding: 8px;
-
-            font-size: 16px;
-
-            border: 1px solid #ccc;
-
-            border-radius: 4px;
-
-        }
-
-        input[type="submit"], input[type="reset"] {
-
-            background-color: #411f68;
-
-            color: white;
-
-            cursor: pointer;
-
-        }
-
-        input[type="submit"]:hover, input[type="reset"]:hover {
-
-            background-color: #411f68;
-
-        }
-
-        label {
-
-            margin-bottom: 5px;
-
-        }
-
-    </style>
-
-    <script>
-
-        // Handle GET method submission
-
-        function handleGetFormSubmit(event) {
-
-            event.preventDefault(); // Prevent default form submission
-
-            const username = document.getElementById('username').value;
-
-            const password = document.getElementById('password').value;
-
-            alert(`GET method: Username - ${username}, Password - ${password}`);
-
-        }
-
- 
-
-        // Handle POST method submission
-
-        function handlePostFormSubmit(event) {
-
-            event.preventDefault(); // Prevent default form submission
-
-            const fullName = document.getElementById('fullName').value;
-
-            const email = document.getElementById('email').value;
-
-            const username = document.getElementById('regUsername').value;
-
-            const password = document.getElementById('regPassword').value;
-
-            alert(`POST method: Full Name - ${fullName}, Email - ${email}, Username - ${username}`);
-
-        }
-
- 
-
-        // Handle Select event (onselect)
-
-        function handleSelectEvent(event) {
-
-            const selectedSeat = event.target.value;
-
-            alert(`Preferred seat selected: ${selectedSeat}`);
-
-        }
-
- 
-
-        // Handle Button click event (onclick)
-
-        function handleButtonClick() {
-
-            alert("Button clicked!");
-
-        }
-
- 
-
-        // Handle Form submit event (onsubmit)
-
-        function handleFormSubmit(event) {
-
-            event.preventDefault(); // Prevent form from submitting to server
-
-            alert("Form has been submitted!");
-
-        }
-
- 
-
-        // Handle Full Name change event (onchange)
-
-        function handleFullNameChange(event) {
-
-            const fullName = event.target.value;
-
-            alert(`Full Name changed: ${fullName}`);
-
-        }
-
- 
-
-        // Handle Page Load event (onload)
-
-        function handlePageLoad() {
-
-            alert("Welcome to MYTRIP Bus Reservation! Page has been loaded.");
-
-        }
-
-    </script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Reservation System</title>
 </head>
-
-<body onload="handlePageLoad()">
-
- 
-
-    <!-- Welcome Page -->
-
-    <header>
-
-        <h1>Welcome to MYTRIP Bus Reservation</h1>
-
-    </header>
-
- 
-
-    <!-- Login Page -->
-
-    <section>
-
-        <h2>Login</h2>
-
-        <form onsubmit="handleGetFormSubmit(event)">
-
-            <label for="username">Username</label>
-
-            <input type="text" id="username" name="username" required placeholder="Enter your username">
-
-           
-
-            <label for="password">Password</label>
-
-            <input type="password" id="password" name="password" required placeholder="Enter your password">
-
-           
-
-            <label for="rememberMe">
-
-                <input type="checkbox" id="rememberMe" name="rememberMe">
-
-                Remember Me
-
-            </label>
-
-           
-
-            <input type="submit" value="Login">
-
-            <input type="reset" value="Reset">
-
-           
-
-            <p>Don't have an account? <a href="register.html">Register here</a></p>
-
-        </form>
-
-    </section>
-
- 
-
-    <hr>
-
- 
-
-    <!-- Registration Page -->
-
-    <section>
-
-        <h2>Register</h2>
-
-        <form onsubmit="handlePostFormSubmit(event)">
-
-            <label for="fullName">Full Name</label>
-
-            <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name" onchange="handleFullNameChange(event)">
-
- 
-
-            <label for="email">Email</label>
-
-            <input type="email" id="email" name="email" required placeholder="Enter your email address">
-
- 
-
-            <label for="username">Username</label>
-
-            <input type="text" id="regUsername" name="regUsername" required placeholder="Choose a username">
-
- 
-
-            <label for="password">Password</label>
-
-            <input type="password" id="regPassword" name="regPassword" required placeholder="Create a password">
-
- 
-
-            <label for="confirmPassword">Confirm Password</label>
-
-            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
-
- 
-
-            <label>Gender</label>
-
-            <input type="radio" id="male" name="gender" value="Male">
-
-            <label for="male">Male</label>
-
-            <input type="radio" id="female" name="gender" value="Female">
-
-            <label for="female">Female</label>
-
- 
-
-            <label for="preferredSeat">Preferred Seat Type</label>
-
-            <select id="preferredSeat" name="preferredSeat" onchange="handleSelectEvent(event)">
-
-                <option value="window">Window</option>
-
-                <option value="aisle">Aisle</option>
-
-                <option value="middle">Middle</option>
-
-            </select>
-
- 
-
-            <label for="address">Address</label>
-
-            <textarea id="address" name="address" rows="4" placeholder="Enter your address"></textarea>
-
- 
-
-            <input type="submit" value="Register">
-
-            <input type="reset" value="Reset">
-
-        </form>
-
-    </section>
-
- 
-
-    <hr>
-
- 
-
-    <!-- Button with onclick event -->
-
-    <section>
-
-        <h2>Click the Button</h2>
-
-        <button onclick="handleButtonClick()">Click Me</button>
-
-    </section>
-
- 
-
-    <hr>
-
- 
-
-    <!-- Example Form Submission event -->
-
-    <section>
-
-        <h2>Form Submission Event Example</h2>
-
-        <form onsubmit="handleFormSubmit(event)">
-
-            <label for="submit-name">Your Name:</label>
-
-            <input type="text" id="submit-name" required>
-
-            <br>
-
-            <input type="submit" value="Submit Form">
-
-        </form>
-
-    </section>
-
- 
-
+<body>
+  <h1>Bus Reservation System</h1>
+  
+  <div id="reservationDetails">
+    <h2>Reserve Your Bus Ticket</h2>
+    <form id="reservationForm">
+      <label for="passengerName">Name: </label>
+      <input type="text" id="passengerName" required>
+      <br>
+      <label for="busNumber">Bus Number: </label>
+      <input type="text" id="busNumber" required>
+      <br>
+      <label for="seats">Seats: </label>
+      <input type="number" id="seats" required>
+      <br><br>
+      <button type="button" onclick="reserveTicket()">Reserve</button>
+    </form>
+  </div>
+
+  <div id="reservationList">
+    <h2>Reservation List</h2>
+    <ul id="reservationListDisplay"></ul>
+  </div>
+
+  <script>
+    class BusReservation {
+      constructor() {
+        this.reservations = [];
+      }
+
+      // Using apply() function to add reservation with parameters
+      addReservationWithApply(passengerName, busNumber, seats) {
+        const reservation = {
+          passengerName,
+          busNumber,
+          seats
+        };
+        this.reservations.push(reservation);
+        console.log("Reservation added with apply:", reservation);
+      }
+
+      // Using call() function to add reservation with parameters
+      addReservationWithCall(passengerName, busNumber, seats) {
+        const reservation = {
+          passengerName,
+          busNumber,
+          seats
+        };
+        this.reservations.push(reservation);
+        console.log("Reservation added with call:", reservation);
+      }
+
+      // Using bind() function to create a new function with specific context
+      createBoundReservation(passengerName, busNumber, seats) {
+        const reservation = {
+          passengerName,
+          busNumber,
+          seats
+        };
+        console.log("Reservation added with bind:", reservation);
+        this.reservations.push(reservation);
+      }
+
+      // Arrow function for adding reservation
+      addReservationWithArrow = (passengerName, busNumber, seats) => {
+        const reservation = {
+          passengerName,
+          busNumber,
+          seats
+        };
+        this.reservations.push(reservation);
+        console.log("Reservation added with arrow function:", reservation);
+      };
+
+      // Multiline Arrow function
+      addReservationMultiline = (passengerName, busNumber, seats) => {
+        const reservation = {
+          passengerName,
+          busNumber,
+          seats
+        };
+        console.log("Reservation added with multiline arrow function:");
+        console.log(reservation);
+        this.reservations.push(reservation);
+      };
+
+      // Getters and Setters for reservation details
+      get reservationCount() {
+        return this.reservations.length;
+      }
+
+      set addNewReservation(reservation) {
+        this.reservations.push(reservation);
+        console.log("New reservation added:", reservation);
+      }
+
+      // Delete operation - Remove reservation
+      deleteReservation(index) {
+        if (index >= 0 && index < this.reservations.length) {
+          this.reservations.splice(index, 1);
+          console.log("Reservation deleted:", index);
+        }
+      }
+
+      // Display reservations
+      displayReservations() {
+        const reservationListDisplay = document.getElementById("reservationListDisplay");
+        reservationListDisplay.innerHTML = '';
+        this.reservations.forEach((reservation, index) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = `Name: ${reservation.passengerName}, Bus: ${reservation.busNumber}, Seats: ${reservation.seats}`;
+          reservationListDisplay.appendChild(listItem);
+        });
+      }
+    }
+
+    // Creating an instance of BusReservation
+    const busReservation = new BusReservation();
+
+    // Using form input to reserve ticket
+    function reserveTicket() {
+      const name = document.getElementById("passengerName").value;
+      const busNumber = document.getElementById("busNumber").value;
+      const seats = parseInt(document.getElementById("seats").value);
+
+      // Use one of the methods (apply, call, bind, arrow functions)
+      // You can switch methods as needed
+      busReservation.addReservationWithArrow(name, busNumber, seats);
+      busReservation.displayReservations();
+    }
+
+    // Test examples with apply(), call(), bind()
+    const reservationData = ["John Doe", "B123", 2];
+    busReservation.addReservationWithApply.apply(busReservation, reservationData);
+    busReservation.addReservationWithCall.call(busReservation, ...reservationData);
+
+    // Bind a method to create a specific reservation function
+    const boundReservation = busReservation.createBoundReservation.bind(busReservation);
+    boundReservation("Alice", "B124", 3);
+
+    // Multiline Arrow function example
+    busReservation.addReservationMultiline("Bob", "B125", 4);
+
+    // Using getter to get reservation count
+    console.log("Total Reservations:", busReservation.reservationCount);
+
+    // Using setter to add a new reservation
+    busReservation.addNewReservation = {
+      passengerName: "Charlie",
+      busNumber: "B126",
+      seats: 1
+    };
+
+    // Deleting reservation with index 1
+    busReservation.deleteReservation(1);
+    busReservation.displayReservations();
+  </script>
 </body>
-
 </html>
-
- 
-
- 
-

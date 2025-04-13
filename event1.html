@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Reservation System</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-size: 16px;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        select, input[type="number"], input[type="date"], button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .confirmation {
+            display: none;
+            padding: 20px;
+            background-color: #e7f7e6;
+            border: 1px solid #4CAF50;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .confirmation p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bus Reservation System</h1>
+    <div class="container">
+        <h2>Reserve Your Bus Seat</h2>
+
+        <!-- Reservation Form -->
+        <form id="reservationForm">
+            <label for="route">Select Route:</label>
+            <select id="route" required>
+                <option value="Route 1">Route 1: City A - City B</option>
+                <option value="Route 2">Route 2: City B - City C</option>
+                <option value="Route 3">Route 3: City A - City C</option>
+            </select>
+
+            <label for="numPassengers">Number of Passengers:</label>
+            <input type="number" id="numPassengers" min="1" required>
+
+            <label for="travelDate">Travel Date:</label>
+            <input type="date" id="travelDate" required>
+
+            <button type="submit">Submit Reservation</button>
+        </form>
+
+        <!-- Confirmation message after reservation -->
+        <div id="confirmation" class="confirmation">
+            <h3>Reservation Confirmed!</h3>
+            <p id="reservationDetails"></p>
+        </div>
+    </div>
+
+    <script>
+        // Get form, confirmation box, and button elements
+        const reservationForm = document.getElementById('reservationForm');
+        const confirmation = document.getElementById('confirmation');
+        const reservationDetails = document.getElementById('reservationDetails');
+        const button = document.querySelector('button');
+        const numPassengersInput = document.getElementById('numPassengers');
+        const travelDateInput = document.getElementById('travelDate');
+        const routeSelect = document.getElementById('route');
+
+        // 1. Event Bubbling: Handle the form submission at the form level
+        reservationForm.addEventListener('submit', function(event) {
+            // Bubbling Phase: The event bubbles up from the button to the form
+            console.log('Event captured in the form (Bubbling Phase)');
+            event.preventDefault(); // Prevent form submission
+
+            // Get form values
+            const route = routeSelect.value;
+            const numPassengers = numPassengersInput.value;
+            const travelDate = travelDateInput.value;
+
+            // Display reservation confirmation details
+            reservationDetails.innerHTML = `
+                You have successfully reserved ${numPassengers} seat(s) on ${route} for travel on ${travelDate}.
+            `;
+            confirmation.style.display = 'block'; // Show the confirmation box
+
+            // Reset the form for a new reservation after submission
+            reservationForm.reset();
+        }, false);  // This listener is in the "bubbling" phase
+
+        // 2. Event Capturing: Handle the submit event in the capturing phase
+        document.addEventListener('submit', function(event) {
+            console.log('Event captured in the document (Capturing Phase)');
+        }, true);  // This is in the "capturing" phase
+
+        // 3. Button click event (Bubbling phase)
+        button.addEventListener('click', function(event) {
+            console.log('Button click event (Bubbling Phase)');
+        }, false);
+
+        // 4. Mouse Enter (hover over route select dropdown)
+        routeSelect.addEventListener('mouseenter', function() {
+            console.log('Mouse entered the route selection dropdown');
+        });
+
+        // 5. Mouse Leave (when mouse leaves the submit button)
+        button.addEventListener('mouseleave', function() {
+            console.log('Mouse left the submit button');
+        });
+
+        // 6. Focus (when the input field for passengers is focused)
+        numPassengersInput.addEventListener('focus', function() {
+            console.log('Input field for number of passengers is focused');
+        });
+
+        // 7. Blur (when the input field for passengers loses focus)
+        numPassengersInput.addEventListener('blur', function() {
+            console.log('Input field for number of passengers lost focus');
+        });
+
+        // 8. Keydown (when a key is pressed in the travel date input field)
+        travelDateInput.addEventListener('keydown', function(event) {
+            console.log(`Key "${event.key}" was pressed in the travel date input field`);
+        });
+
+        // 9. Keyup (when a key is released in the route selection dropdown)
+        routeSelect.addEventListener('keyup', function(event) {
+            console.log(`Key "${event.key}" was released in the route selection dropdown`);
+        });
+
+        // 10. Change (when the number of passengers is changed)
+        numPassengersInput.addEventListener('change', function() {
+            console.log(`Number of passengers changed to: ${numPassengersInput.value}`);
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Reservation System</title>
+</head>
+<body>
+
+    <h1>Bus Reservation System</h1>
+
+    <script>
+        // Bus Reservation System
+
+        // Bus object to store information about the bus, available seats, and reservation details
+        const bus = {
+            busNumber: 'AB1234',
+            totalSeats: 30,
+            reservedSeats: 0,
+            seatPrice: 50,
+            reservations: [],
+
+            // Method to reserve a seat
+            reserveSeat: function(passengerName) {
+                if (this.reservedSeats < this.totalSeats) {
+                    this.reservedSeats++;
+                    this.reservations.push(passengerName);
+                    console.log(`${passengerName} has reserved a seat.`);
+                } else {
+                    console.log('Sorry, no seats available.');
+                }
+            },
+
+            // Method to cancel a reservation
+            cancelReservation: function(passengerName) {
+                const index = this.reservations.indexOf(passengerName);
+                if (index !== -1) {
+                    this.reservations.splice(index, 1);
+                    this.reservedSeats--;
+                    console.log(`${passengerName}'s reservation has been cancelled.`);
+                } else {
+                    console.log('No reservation found for this passenger.');
+                }
+            },
+
+            // Getter for available seats
+            get availableSeats() {
+                return this.totalSeats - this.reservedSeats;
+            },
+
+            // Setter to modify seat price
+            set setSeatPrice(newPrice) {
+                if (newPrice < 0) {
+                    console.log('Price cannot be negative.');
+                } else {
+                    this.seatPrice = newPrice;
+                    console.log(`Seat price updated to $${newPrice}.`);
+                }
+            },
+
+            // Method to show all reservations
+            showReservations: function() {
+                if (this.reservations.length === 0) {
+                    console.log('No reservations made yet.');
+                } else {
+                    console.log('Reserved Seats:', this.reservations.join(', '));
+                }
+            }
+        };
+
+        // 1. Using bind, call, and apply with bus reservation system
+
+        // Create a function to check the total cost of a reservation
+        function calculateCost(numSeats) {
+            return numSeats * this.seatPrice;
+        }
+
+        // Using bind to bind the function to the bus object
+        const boundCalculateCost = calculateCost.bind(bus);
+
+        // Using call to calculate cost for 3 seats
+        console.log('Total cost for 3 seats (using call):', calculateCost.call(bus, 3));
+
+        // Using apply to calculate cost for an array of seats
+        console.log('Total cost for 5 seats (using apply):', calculateCost.apply(bus, [5]));
+
+        // Using bind to calculate cost later
+        console.log('Total cost for 2 seats (using bind):', boundCalculateCost(2));
+
+        // 2. Arrow function for reservation confirmation message
+        const confirmReservation = (name) => {
+            return `${name}, your seat reservation is confirmed!`;
+        };
+        console.log(confirmReservation('John Doe'));
+
+        // 3. Using getter and setter
+
+        console.log("Available Seats (getter):", bus.availableSeats);
+        bus.setSeatPrice = 60; // Using setter to update the seat price
+        console.log("Updated Seat Price (getter):", bus.seatPrice);
+        
+        // 4. Simulating reservations
+        bus.reserveSeat("Alice");
+        bus.reserveSeat("Bob");
+        bus.reserveSeat("Charlie");
+        
+        bus.showReservations();
+
+        // 5. Deleting a reservation
+        bus.cancelReservation("Bob"); // Delete Bob's reservation
+        bus.showReservations(); // Show updated reservations
+
+        console.log("Available Seats after cancellation (getter):", bus.availableSeats);
+
+    </script>
+</body>
+</html>
+

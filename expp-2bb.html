@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Reservation System</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body and general layout */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    /* Container for the form and reservation list */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Section */
+    #reservationDetails h2 {
+      text-align: center;
+      color: #2980b9;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    input[type="text"], input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 12px 20px;
+      background-color: #2980b9;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #3498db;
+    }
+
+    #confirmationMessage {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    /* Reservation List Section */
+    #reservationList h2 {
+      color: #2980b9;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      background-color: #ecf0f1;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    button.delete {
+      background-color: #e74c3c;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button.delete:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Bus Reservation System</h1>
+
+
+  <div class="container" id="reservationDetails">
+    <h2>Reserve Your Bus Ticket</h2>
+    <form id="reservationForm">
+      <label for="passengerName">Name: </label>
+      <input type="text" id="passengerName" placeholder="Enter your name" required>
+      
+      <label for="busNumber">Bus Number: </label>
+      <input type="text" id="busNumber" placeholder="Enter bus number" required>
+      
+      <label for="seats">Seats: </label>
+      <input type="number" id="seats" placeholder="Number of seats" required min="1">
+
+      <button type="button" onclick="reserveTicket()">Reserve</button>
+    </form>
+    <p id="confirmationMessage"></p>
+  </div>
+
+  <div class="container" id="reservationList">
+          deleteButton.classList.add("delete");
+ 
+          deleteButton.onclick = () => this.deleteReservation(index);
+
+          listItem.appendChild(deleteButton);
+          reservationListDisplay.appendChild(listItem);
+        });
+      }
+
+      // Delete a reservation by index
+      deleteReservation(index) {
+        if (index >= 0 && index < this.reservations.length) {
+          this.reservations.splice(index, 1);  // Remove reservation from the array
+          console.log("Reservation deleted:", index);
+          this.displayReservations(); // Refresh the list after deletion
+        }
+      }
+    }
+
+    // Create an instance of BusReservation
+    const busReservation = new BusReservation();
+
+    // Reserve Ticket Function
+    function reserveTicket() {
+      const name = document.getElementById("passengerName").value;
+      const busNumber = document.getElementById("busNumber").value;
+      const seats = parseInt(document.getElementById("seats").value);
+      const confirmationMessage = document.getElementById("confirmationMessage");
+
+      // Validate the form
+      if (!name || !busNumber || isNaN(seats) || seats < 1) {
+        confirmationMessage.style.color = "red";
+        confirmationMessage.textContent = "Please fill all fields correctly.";
+        return;
+      }
+
+      // Add the reservation and display the updated list
+      busReservation.addReservationWithArrow(name, busNumber, seats);
+      busReservation.displayReservations();
+
+      // Display confirmation message
+      confirmationMessage.style.color = "green";
+      confirmationMessage.textContent = `Reservation for ${name} on bus ${busNumber} (Seats: ${seats}) added successfully!`;
+
+      // Clear form after submission
+      document.getElementById("reservationForm").reset();
+    }
+
+    // Initialize the reservation list when the page loads
+    busReservation.displayReservations();
+  </script>
+
+</body>
+</html>
+ 
